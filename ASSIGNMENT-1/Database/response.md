@@ -8,3 +8,4 @@
 |     2    	| 20,000 - 80,000 (majorly near 40,000 )  	|
 |     1    	| 20,000 - 70,000 (majorly near 20,000)   	|
 
+Again 5 clients is too less to overload the server, although the resonse time is overall greater than the echo engine because file opening and reading takes place. The above table states a range of values(in nanosec) and also the most observed response time figure. 
