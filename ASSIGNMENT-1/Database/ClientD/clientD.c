@@ -63,10 +63,10 @@ int main()
 	  
 	    // display the message
 		clock_gettime(CLOCK_REALTIME, &end);
-		double time_spent = (end.tv_sec - start.tv_sec) +(end.tv_nsec - start.tv_nsec) / BILLION;
+		double time_spent = end.tv_nsec - start.tv_nsec;
 		printf("Data Received is : %s", message.mesg_text.data); 
 
-		printf("server took %f seconds to execute \n\n", time_spent); 
+		printf("server took %f nanoseconds to execute \n\n", time_spent); 
 	}
 	msgctl(cid, IPC_RMID, NULL); 
 
