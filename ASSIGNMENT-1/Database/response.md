@@ -1,4 +1,4 @@
-#Observation Table:
+# Observation Table:
 
 | #clients 	| Server Response Time(ns)                	|
 |----------	|-----------------------------------------	|
