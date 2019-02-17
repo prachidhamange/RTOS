@@ -3,7 +3,7 @@ Observations for echo_engine:
 
 | #clients 	| Server Response Time(ns)                	|
 |----------	|-----------------------------------------	|
-|     5    	| 30,000 - 1,30,000 (majorly near 80,000  	|
+|     5    	| 30,000 - 1,30,000 (majorly near 80,000)  	|
 |     4    	| 30,000 - 1,20,000 (majorly near 80,000) 	|
 |     3    	| 20,000 - 80,000 (majorly near 30,000 )  	|
 |     2    	| 20,000 - 80,000 (majorly near 30,000 )  	|
