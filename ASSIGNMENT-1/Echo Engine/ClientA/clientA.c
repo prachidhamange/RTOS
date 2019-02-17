@@ -27,7 +27,7 @@ int main()
 	//server MQ id,client MQ id 
 	int msgid,cid;
 
-  
+    // creates a private MQ(accessible only by client A) and returns the id 
 	cid=msgget(IPC_PRIVATE,0660);	
     // ftok to generate unique key 
 	key = ftok("progfile", 65); 
