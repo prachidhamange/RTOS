@@ -22,13 +22,11 @@ int main(int argc , char *argv[])
     int max_sd;   
     struct sockaddr_in address;   
          
-    char buffer[1025];  //data buffer of 1K  
+    char buffer[1025];  
          
     //set of socket descriptors  
     fd_set readfds;   
          
-    //a message  
-    //char *message = "ECHO Daemon v1.0 \r\n";   
      
     //initialise all client_socket[] to 0 so not checked  
     for (i = 0; i < max_clients; i++)   
@@ -100,7 +98,7 @@ int main(int argc , char *argv[])
                 max_sd = sd;   
         }   
      
-        //wait indefinitely for an activity on one of the sockets , timeout is NULL ,  
+        //wait indefinitely for an activity on one of the sockets   
         
         activity = select( max_sd + 1 , &readfds , NULL , NULL , NULL);   
        
