@@ -1,16 +1,14 @@
 
-//Example code: A simple server side code, which echos back the received message. 
-//Handle multiple socket connections with select and fd_set on Linux  
 #include <stdio.h>  
-#include <string.h>   //strlen  
+#include <string.h>   
 #include <stdlib.h>  
 #include <errno.h>  
-#include <unistd.h>   //close  
-#include <arpa/inet.h>    //close  
+#include <unistd.h>    
+#include <arpa/inet.h>  
 #include <sys/types.h>  
 #include <sys/socket.h>  
 #include <netinet/in.h>  
-#include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros  
+#include <sys/time.h> 
      
 #define TRUE   1  
 #define FALSE  0  
@@ -24,13 +22,12 @@ int main(int argc , char *argv[])
     int max_sd;   
     struct sockaddr_in address;   
          
-    char buffer[1025];  //data buffer of 1K  
+    char buffer[1025];    
          
     //set of socket descriptors  
     fd_set readfds;   
          
-    //a message  
-    char *message = "ECHO Daemon v1.0 \r\n";   
+  
      
     //initialise all client_socket[] to 0 so not checked  
     for (i = 0; i < max_clients; i++)   
@@ -46,7 +43,6 @@ int main(int argc , char *argv[])
     }   
      
     //set master socket to allow multiple connections ,  
-    //this is just a good habit, it will work without this  
     if( setsockopt(master_socket, SOL_SOCKET, SO_REUSEADDR, (char *)&opt,  
           sizeof(opt)) < 0 )   
     {   
@@ -56,8 +52,8 @@ int main(int argc , char *argv[])
      
     //type of socket created  
     address.sin_family = AF_INET;   
-    address.sin_addr.s_addr = INADDR_ANY;   
-    address.sin_port = htons( PORT );   
+    address.sin_addr.s_addr = INADDR_ANY;//sets the address as address of server i.e the address of machine on which it is running   
+    address.sin_port = htons( PORT ); //convert to network byte order  
          
     //bind the socket to localhost port 8888  
     if (bind(master_socket, (struct sockaddr *)&address, sizeof(address))<0)   
@@ -102,8 +98,7 @@ int main(int argc , char *argv[])
                 max_sd = sd;   
         }   
      
-        //wait for an activity on one of the sockets , timeout is NULL ,  
-        //so wait indefinitely  
+        //wait indefinitely  
         activity = select( max_sd + 1 , &readfds , NULL , NULL , NULL);   
        
         if ((activity < 0) && (errno!=EINTR))   
@@ -111,9 +106,7 @@ int main(int argc , char *argv[])
             printf("select error");   
         }   
              
-        //If something happened on the master socket ,  
-        //then its an incoming connection 
-	//while(!FD_ISSET(master_socket, &readfds)) ;
+        //if its an incoming connection 
         if (FD_ISSET(master_socket, &readfds))   
         {   
             if ((new_socket = accept(master_socket,  
@@ -124,16 +117,9 @@ int main(int argc , char *argv[])
             }   
              
             //inform user of socket number - used in send and receive commands  
-            printf("New connection , socket fd is %d , ip is : %s , port : %d \n" , new_socket , inet_ntoa(address.sin_addr) , ntohs 
+            printf("New connection , socket fd : %d , ip is : %s , port : %d \n" , new_socket , inet_ntoa(address.sin_addr) , ntohs 
                   (address.sin_port));   
            
-            //send new connection greeting message  
-            /*if( send(new_socket, message, strlen(message), 0) != strlen(message) )   
-            {   
-                perror("send");   
-            }   
-                 
-            puts("Welcome message sent successfully");  */ 
                  
             //add new socket to array of sockets  
             for (i = 0; i < max_clients; i++)   
@@ -149,7 +135,6 @@ int main(int argc , char *argv[])
             }   
         }   
              
-        //else its some IO operation on some other socket 
         for (i = 0; i < max_clients; i++)   
         {   
             sd = client_socket[i];   
@@ -170,12 +155,10 @@ int main(int argc , char *argv[])
                     client_socket[i] = 0;   
                 }   
                      
-                //Echo back the message that came in  
+                //check for the file  
                 else 
                 {   
-                    //set the string terminating NULL byte on the end  
-                    //of the data read  
-                    //buffer[valread] = '\0'; 
+ 
 		   
 		    char filename[10];
 		    memset(filename,'\0',sizeof(char)*10); 
@@ -192,7 +175,7 @@ int main(int argc , char *argv[])
 		    FILE *fptr;
 		    char ch;
 
-			    //  open the file for reading 
+	 	    //  open the file for reading 
 		    fptr = fopen(filename, "r");
 		    memset(buffer,'\0',sizeof(char)*1025); 
 		    if (fptr == NULL)
@@ -225,7 +208,6 @@ int main(int argc , char *argv[])
                    send(sd , buffer , strlen(buffer) , 0 );   	   
 
 		   							 
-                    //send(sd , buffer , strlen(buffer) , 0 );   
                 }   
             }   
         }   
