@@ -1,6 +1,6 @@
-#Implementation of co-routine
+# Implementation of co-routine
 
-##Requirements
+## Requirements
 
 1. It should be possible to simulate the start and stopping of a co-routine.
 
