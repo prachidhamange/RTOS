@@ -6,7 +6,7 @@
 
 2. We should be able to Send data to co-routine with something like handle.send() API (You need to implement this)
 
- 3.We should be able to pause and resume the execution of co-routines from a central routine.
+3. We should be able to pause and resume the execution of co-routines from a central routine.
 
 4. We should be able to modify and existing routine written in C to a Co-routine pattern
 
