@@ -8,4 +8,4 @@
 6) The server could now play the audio properly. But there were issues with the voice quality-
     * echo
     * noise
-    * volume levels were not stable, some words would be heard clearly, while others sounded like a whisper.
+    * volume levels are not stable, some words can be heard clearly, while some sound like a whisper.
