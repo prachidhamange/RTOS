@@ -6,6 +6,6 @@
 4) The second sample code(the one used for playback) read the data from the same file and tried to play it back. But it was giving error of "bad file descriptor".
 5) Then I created a client-server model(using TCP/IP socket), where the data being recorded was being written to the data buffer sent to the server.
 6) The server could now play the audio properly. But there were issues with the voice quality-
-    *echo
-    *noise
-    *volume levels were not stable, some words would be heard clearly, while others sounded like a whisper.
+    * echo
+    * noise
+    * volume levels were not stable, some words would be heard clearly, while others sounded like a whisper.
