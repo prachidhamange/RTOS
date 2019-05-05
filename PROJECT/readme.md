@@ -22,6 +22,44 @@ We have three structures - task, stove and queue_node.
 
 ### Threads
 We want threads in order to replicate the live functioning of a stove. There are as many threads as number of stoves in the kitchen. This thread is responsible to process the orders, and once the order is prepared, request for the next order waiting in its queue. In case, the queue is empty, it will wait indefinitely until a new order is added to the queue.
+```
+void* cook_stove()//function which stove threads keep running in a loop, simple functions of a stove
+{
+	int comp_sleep;//thread should sleep till the order is being cooked,
+	int current_order;
+	int tid=thread_count-1;
+	printf("im thread %d\n",tid);	
+	pthread_mutex_unlock(&create_lock);
+	//printf("CREATE UNLOCK by cook stove\n");
+	while(1){`
+			printf("Waiting for scheduler to unlock %d\n",tid);
+			int k=pthread_mutex_lock(&(thread_locks[tid]));//tasks present and queue is a global variable.
+			printf("cook has lock return-%d lock-%d\n",k,tid);
+
+			if(tasks_present[tid]>0)
+			{
+				s[tid].status=1;
+				s[tid].t=next(s,tid);//next() returns the first task in the queue of stove  
+				s[tid].t.stat=0;
+				pthread_mutex_lock(&time_lock);
+				s[tid].t.ect=currt+s[tid].t.prep;
+				pthread_mutex_unlock(&time_lock);
+				comp_sleep=s[tid].t.prep;
+
+				tasks_present[tid]--;
+
+				current_order=s[tid].t.id;
+			}
+			printf("Preparing order with id : %d\n",current_order);
+			pthread_mutex_unlock(&(thread_locks[tid]));
+			printf("THREAD UNLOCK %d RELEASED by cook stove\n",tid);	
+			sleep(comp_sleep);// sleeping signifies one order being cooked and no activity from stove is expected during this
+			printf("Order with id %d prepared\n",current_order);
+			flag=1;
+		}
+}
+
+```
 
 ![API](rtos2.png)
 
