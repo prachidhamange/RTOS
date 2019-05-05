@@ -31,8 +31,11 @@ We have two different kinds of locks here, the first kind are thread locks which
 The second kind of lock is a time lock which has been kept to ensure that there are no simultaenous access/modifications to a real clock counter leading to a race condition.
 ### allot()
 This function is fundamental to our code as it encompasses the implementation for the scheduler.This function is responsible for assigning orders to one of the stoves. 
+
 Condition to be checked;
-....Add image
+
+![API](rtos1.png)
+
 ## Gaps
 * There might be cases wherein an order received latest has the earliest deadline. There is a possibility that if a currently being processed order is halted and sent back to the queue, and this order is taken up, it can be delivered within deadline. But then, we have to ensure that all the orders that were already in the queue still can be serviced within the deadline(as now an extra waiting time equal to the preparation time of this emergency order is added). This makes the code complex.
 
