@@ -17,8 +17,34 @@ The only difference is that these orders have a deadline. We can assume that pre
 ### Structures
 We have three structures - task, stove and queue_node.
 
+```c
+struct task
+{
 
-![API](rtos1.png)
+	int id;
+	int stat;
+	int arr;
+	int prep;
+	int dline;
+	int ect;
+
+};
+
+struct stove
+{
+	int status;
+	struct task t;
+};
+
+struct queue_node
+{
+
+	struct queue_node* prev;
+	struct queue_node* next;
+	struct task t;
+};
+```
+
 
 ### Threads
 We want threads in order to replicate the live functioning of a stove. There are as many threads as number of stoves in the kitchen. This thread is responsible to process the orders, and once the order is prepared, request for the next order waiting in its queue. In case, the queue is empty, it will wait indefinitely until a new order is added to the queue.
@@ -55,13 +81,13 @@ void* cook_stove()//function which stove threads keep running in a loop, simple 
 			printf("THREAD UNLOCK %d RELEASED by cook stove\n",tid);	
 			sleep(comp_sleep);// sleeping signifies one order being cooked and no activity from stove is expected during this
 			printf("Order with id %d prepared\n",current_order);
-			flag=1;
+			
 		}
 }
 
 ```
 
-![API](rtos2.png)
+
 
 ### Locks
 We have two different kinds of locks here, the first kind are thread locks which block threads(3, analogous to stoves) from accesing or modifying the same resources which the scheduler uses. Intuitively one can tell that these resources would constitute a scheduling queue. In our construct each stove or cooking station has its own queue which stores the order of food orders to be prepared. Each stove can delete orders from its queue after taking them up for preparation. These queues are populated by the scheduler based on rules which we think would lead to efficient utilization and earliest deliveries.
