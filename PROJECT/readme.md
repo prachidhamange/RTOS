@@ -25,8 +25,8 @@ This function is responsible for assigning orders to one of the stoves.
 Condition to be checked;
 ....Add image
 ## Gaps
-## Challenges
-* There might be cases wherein an order received latest has the earliest deadline. There is a possibility that if a currently being processed order is halted and sent back to the queue, and this order is taken up, it can be delivered within deadline. But then, we have to ensure that all the orders that were already in the queue still can be serviced within the deadline(as now an extra waiting time equal to the preparation time of this emergency order is added).
+* There might be cases wherein an order received latest has the earliest deadline. There is a possibility that if a currently being processed order is halted and sent back to the queue, and this order is taken up, it can be delivered within deadline. But then, we have to ensure that all the orders that were already in the queue still can be serviced within the deadline(as now an extra waiting time equal to the preparation time of this emergency order is added). This makes the code complex.
 
-*  Keeping track of locks
+## Challenges
+*  Handling synchronization using locks can get confusing.
 ## Extra Info
