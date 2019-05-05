@@ -1,9 +1,10 @@
 
 # KITCHEN ORDER SCHEDULER
 ## Problem
-Every restaurant kitchen receives orders with a particular deadline. This project implements a scheduling algorithm such that-
+Every restaurant kitchen receives orders with a particular deadline. The success of any kitchen in such a scenario is entirely dependent on effective processing of incoming orders. This project implements a scheduling system such that-
 1. the order is processed within the deadline
-2. the order is processed at the earliest
+2. the order is processed efficiently
+wherein the kitchen has multiple stoves(3 in this case) and the ordering system recieves order from either a file or a client-server based system. In the latter case the system simulating a kitchen resides in server source code.
 
 ## Solution
 Just take a real life scenario - say a billing counter at a super market.
@@ -20,11 +21,13 @@ We have three structures - task, stove and queue_node.
 ![API](rtos1.png)
 
 ### Threads
-We have threads equal to the number of stoves(here 3) running in parallel.
+
 ### Locks
-.....
+We have two different kinds of locks here, the first kind are thread locks which block threads(3, analogous to stoves) from accesing or modifying the same resources which the scheduler uses. Intuitively one can tell that these resources would constitute a scheduling queue. In our construct each stove or cooking station has its own queue which stores the order of food orders to be prepared. Each stove can delete orders from its queue after taking them up for preparation. These queues are populated by the scheduler based on rules which we think would lead to efficient utilization and earliest deliveries.
+
+The second kind of lock is a time lock which has been kept to ensure that there are no simultaenous access/modifications to a real clock counter leading to a race condition.
 ### allot()
-This function is responsible for assigning orders to one of the stoves. 
+This function is fundamental to our code as it encompasses the implementation for the scheduler.This function is responsible for assigning orders to one of the stoves. 
 Condition to be checked;
 ....Add image
 ## Gaps
