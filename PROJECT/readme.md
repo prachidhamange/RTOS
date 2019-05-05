@@ -56,7 +56,6 @@ void* cook_stove()//function which stove threads keep running in a loop, simple 
 	int tid=thread_count-1;
 	printf("im thread %d\n",tid);	
 	pthread_mutex_unlock(&create_lock);
-	//printf("CREATE UNLOCK by cook stove\n");
 	while(1){
 		printf("Waiting for scheduler to unlock %d\n",tid);
 		int k=pthread_mutex_lock(&(thread_locks[tid]));//tasks present and queue is a global variable.
@@ -75,13 +74,11 @@ void* cook_stove()//function which stove threads keep running in a loop, simple 
 			current_order=s[tid].t.id;
 			}
 		printf("Preparing order with id : %d\n",current_order);
-		//arr[tid]=arr[tid]+1;
 		pthread_mutex_unlock(&(thread_locks[tid]));
 		printf("THREAD UNLOCK %d RELEASED by cook stove\n",tid);	
 		sleep(comp_sleep);// sleeping signifies one order being cooked and no activity from stove is expected during this
 		printf("Order with id %d prepared\n",current_order);
 		tasks_present[tid]--;
-		//arr[tid]=arr[tid]-1;
 		}
 }
 
