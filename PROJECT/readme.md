@@ -15,7 +15,8 @@ The only difference is that these orders have a deadline. We can assume that pre
 ## Implementation
 ### Structures
 We have three structures - task, stove and queue.
-....ADD IMAGE
+![API](rtos1.png)
+
 ### Threads
 We have threads equal to the number of stoves(here 3) running in parallel.
 ### Locks
