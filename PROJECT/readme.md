@@ -22,7 +22,7 @@ We have three structures - task, stove and queue_node.
 
 ### Threads
 We want threads in order to replicate the live functioning of a stove. There are as many threads as number of stoves in the kitchen. This thread is responsible to process the orders, and once the order is prepared, request for the next order waiting in its queue. In case, the queue is empty, it will wait indefinitely until a new order is added to the queue.
-```
+```c
 void* cook_stove()//function which stove threads keep running in a loop, simple functions of a stove
 {
 	int comp_sleep;//thread should sleep till the order is being cooked,
