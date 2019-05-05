@@ -14,7 +14,7 @@ The only difference is that these orders have a deadline. We can assume that pre
 
 ## Implementation
 ### Structures
-We have three structures - task, stove and queue.
+We have three structures - task, stove and queue_node.
 
 
 ![API](rtos1.png)
