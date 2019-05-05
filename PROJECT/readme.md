@@ -22,6 +22,8 @@ We have three structures - task, stove and queue_node.
 
 ### Threads
 
+![API](rtos2.png)
+
 ### Locks
 We have two different kinds of locks here, the first kind are thread locks which block threads(3, analogous to stoves) from accesing or modifying the same resources which the scheduler uses. Intuitively one can tell that these resources would constitute a scheduling queue. In our construct each stove or cooking station has its own queue which stores the order of food orders to be prepared. Each stove can delete orders from its queue after taking them up for preparation. These queues are populated by the scheduler based on rules which we think would lead to efficient utilization and earliest deliveries.
 
