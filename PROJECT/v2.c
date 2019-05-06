@@ -50,24 +50,13 @@ struct queue_node
 	struct task t;
 };
 
-//int n=3;
-//struct task t;
+
 struct stove s[3];//an array of stove
 int q[3]={0,0,0}; //keeps track of estimated completion time of last task in queue of a stove
 struct queue_node* head[3];
 struct queue_node* tail[3];
 
-//function to assign task to ith stove
-/*void assign(struct stove &s[],struct task t,int i)
-{
-	s[i].id=t.id;
-	s[i].status=1;
-	s[i].t=t;
-	s[i].t.stat=0;
-	
-	s[i].t.ect=currt+ s[i].t.prep;//here curr should be replaced by the time this task is taken up by the stove
-}
-*/
+//checking if deadline can be met for an incoming task 
 int check(struct task t,int min,int i)
 {
 	if(t.prep+min<t.arr+t.dline)
@@ -75,7 +64,7 @@ int check(struct task t,int min,int i)
 	return 0;
 }
 
-//function to add task to the queue of a stove
+//function for creating threads
 int create(void *(*f)())
 {
 	pthread_create(&(cooking_threads[thread_count++]), NULL, f, NULL);
@@ -83,14 +72,10 @@ int create(void *(*f)())
 	return thread_count - 1;
 }
 
+//function to add task to the queue of a stove
 void add(struct task t,int min,int i)
 {
-	/*int index=sq[i].index;
-	t.ect=t.prep+currt;
-	sq[i].arr[index%100]=t;
-	sq[i].index=(index+1)%100;*/
-	//pthread_mutex_lock(&array_lock);
-	//pthread_mutex_lock(&thread_locks[i]);
+	
 	t.ect=t.prep+min;
 	struct queue_node *temp=(struct queue_node*)malloc(sizeof(struct queue_node));
 	if(head[i]==NULL)
@@ -101,7 +86,6 @@ void add(struct task t,int min,int i)
 		head[i]->next=NULL;
 		t.stat=1;
 		head[i]->t=t;
-		//head[i]=temp;
 		printf("Adding....task- id %d, arr: %d, prep: %d, dline: %d \n",head[i]->t.id,head[i]->t.arr,head[i]->t.prep,head[i]->t.dline);			
 		tail[i]=head[i];
 
@@ -118,19 +102,15 @@ void add(struct task t,int min,int i)
 	}
 	tasks_present[i]=tasks_present[i]+1;
 	q[i]=t.ect;
-	//printf("task with id %d at top of queue of stove %d\n",head[i]->t.id,i);
-	//printf("task with id %d added to queue of stove %d\n",t.id,i);
-	//pthread_mutex_unlock(&thread_locks[i]);
-	//pthread_mutex_unlock(&array_lock);
-}
+	
 
 //function to allocate the next task in the ith stove queue
 struct task next(struct stove s[],int i)
 {
-	//if()....we have to put a condition to check if there are any tasks in the queue. if there are, then do the below said;
+	
 	while(tasks_present[i]==0);
 		
-	//assign(s,head[i]->t,i);
+	
 	struct queue_node *temp=head[i];
 	struct task t=head[i]->t;
 	head[i]=head[i]->next;
