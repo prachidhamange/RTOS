@@ -97,8 +97,8 @@ Condition to be checked;
 
 ![API](rtos3.png)
 
-  * For the case when queue is empty, **T(available)=0.
-  * For the case when queue has orders waiting, **T(available)= estimated completion time of the last order in the queue.
+  * For the case when queue is empty, **T(available)=0**.
+  * For the case when queue has orders waiting, **T(available)= estimated completion time of the last order in the queue**.
 
 ## Gaps
 * There might be cases wherein an order received latest has the earliest deadline. There is a possibility that if a currently being processed order is halted and sent back to the queue, and this order is taken up, it can be delivered within deadline. But then, we have to ensure that all the orders that were already in the queue still can be serviced within the deadline(as now an extra waiting time equal to the preparation time of this emergency order is added). This makes the code complex.
