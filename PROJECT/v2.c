@@ -141,10 +141,7 @@ void* cook_stove()//function which stove threads keep running in a loop, simple 
 			pthread_mutex_lock(&time_lock);
 			s[tid].t.ect=currt+s[tid].t.prep;
 			pthread_mutex_unlock(&time_lock);
-			comp_sleep=s[tid].t.prep;
-			//pthread_mutex_lock(&array_lock);
-			//tasks_present[tid]--;
-			//pthread_mutex_unlock(&array_lock);			
+			comp_sleep=s[tid].t.prep;		
 			current_order=s[tid].t.id;
 			}
 		printf("Preparing order with id : %d\n",current_order);
@@ -212,15 +209,7 @@ void allot(struct task t)
 			//pthread_mutex_lock(&(thread_locks[snum]));	
 			add(t,min,snum); //function to add the task in the queue of the ith stove
 			t.stat=1;
-			/*for(int k=0;k<3;k++){			
-				pthread_mutex_unlock(&(thread_locks[k]));//After modifying one of the queues we let any active stove cook and take lock back 
-				//printf("THREAD LOCK %d RELEASED by allot\n",k);
-			}			
-			//j=snum;
-			for(int m=0;m<3;m++){			
-				pthread_mutex_lock(&(thread_locks[m]));
-				//printf("THREAD LOCK %d by allot\n",m);
-			}*/
+			
 			pthread_mutex_unlock(&(thread_locks[snum]));
 			pthread_mutex_lock(&cook_lock[snum]);
 			pthread_mutex_lock(&(thread_locks[snum]));
@@ -241,11 +230,7 @@ int main()
 	//int 
 	for(int i=0;i<3;i++)
 	{
-		/*head[i]=(struct queue_node*)malloc(sizeof(struct queue_node));
-		tail[i]=(struct queue_node*)malloc(sizeof(struct queue_node));
-		head[i]->prev=NULL;
-		head[i]->next=NULL;
-		tail[i]=head[i];*/
+		
 		head[i]=NULL;
 		tail[i]=NULL;
 		//tasks_present[i]=0;
@@ -282,8 +267,6 @@ int main()
 		t.dline=read_array[3];
 		t.stat=-1;
 		t.ect=0;
-		//printf("allot0to\n");
-		//printf(" task- id %d, arr: %d, prep: %d, dline: %d read\n",t.id,t.arr,t.prep,t.dline);
 		allot(t);
 		pthread_mutex_lock(&time_lock);
 		currt=currt+1;
@@ -291,7 +274,6 @@ int main()
 	}
 	sleep(8);
 	
-	//for(int i=0;i<3;i++)
-	//	printf("thread %d lock: %d\n",i,arr[i]);	
+		
 	printf("ALL ORDERS FINISHED\n");
 }
