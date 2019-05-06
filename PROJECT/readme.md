@@ -106,3 +106,4 @@ Condition to be checked;
 ## Challenges
 *  Handling synchronization using locks can get confusing.
 ## Extra Info
+* We can extend it further to a server-client model using TCP/IP sockets. We can send only the relevant information to the client. 
