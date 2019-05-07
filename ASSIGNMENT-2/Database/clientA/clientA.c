@@ -49,7 +49,7 @@ int main(int argc, char const *argv[])
           */
 	
 	//comment the below section while testing individually
-		strcpy(hello,"GET a.txt");
+		strcpy(hello,"GET a.txt");//updated
 		send(sock , &hello , 1 , 0 ); 
 	    	while((valread = read( sock , buffer, 1024))==0); 
 	    	printf("value received: %s\n",buffer ); 
