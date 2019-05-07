@@ -22,7 +22,7 @@ int main(int argc , char *argv[])
     int max_sd;   
     struct sockaddr_in address;   
          
-    char buffer[1025];    
+    char buffer[1024];    
          
     //set of socket descriptors  
     fd_set readfds;   
@@ -177,7 +177,7 @@ int main(int argc , char *argv[])
 
 	 	    //  open the file for reading 
 		    fptr = fopen(filename, "r");
-		    memset(buffer,'\0',sizeof(char)*1025); 
+		    memset(buffer,'\0',sizeof(char)*1024); 
 		    if (fptr == NULL)
 		    {
 			char reply[30]="file not found\n";
@@ -205,7 +205,8 @@ int main(int argc , char *argv[])
 		     printf("Data sent is : %s \n", buffer);  
 
 		   }
-                   send(sd , buffer , strlen(buffer) , 0 );   	   
+                   send(sd , buffer , strlen(buffer) , 0 );   
+		   memset(buffer,'\0',sizeof(char)*1024); //updated
 
 		   							 
                 }   
